@@ -1,0 +1,27 @@
+/**
+ * We don't want the user to be able to use 'built-in' features of google maps
+ * So lets override their CSS to remove those elements from the users view.
+ * Will not chain classes just to make clear what elements exactly are hidden
+ * as google uses obscure class names. Who knew.
+ */
+
+/**
+ * Hide Pegman (sorry pegman!)
+ */
+.gm-svpc {
+    display: none !important;
+}
+
+/**
+ * Hide map/sattelite toggle
+ */
+.gmnoprint {
+    display: none !important;
+}
+
+/**
+ * Hide error reporting
+ */
+.gm-style-cc {
+    display: none !important;
+}

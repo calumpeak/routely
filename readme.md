@@ -1,5 +1,5 @@
 # Travely
-The travel route app.
+The lovely travel route app.
 
 ## Getting Started
 
@@ -26,4 +26,4 @@ $ npm run dev
 ```
 Webpack will build all necessary dependencies and proxy through incoming requests to the node server.
 When changes are detected on the server/client then the application will rebuild itself.
-Navigate to `localhost:8080`.
+Navigate to `localhost:8080` to view dev output.
