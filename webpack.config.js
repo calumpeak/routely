@@ -25,7 +25,8 @@ const common = {
                 components: `${PATHS.app}/components`,
                 styles: `${PATHS.app}/styles`,
                 utils: `${PATHS.app}/utils`,
-                store: `${PATHS.app}/store`
+                store: `${PATHS.app}/store`,
+                routely: `${PATHS.app}/app/routely`
             }
     },
     output: {

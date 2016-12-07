@@ -4,30 +4,42 @@
 import 'styles/app.css';
 
 // Core
-import React, { Component } from 'react';
+import React from 'react';
+import store from 'store';
 import Header from 'components/header';
-import Travely from './travely';
+import Routely from './routely';
+
 
 // providers
+import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-class Application extends Component {
-    constructor (props) {
-        super(props);
-    }
+// Lets theme it and scrap the default color scheme
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import * as colors from 'material-ui/styles/colors';
 
-    render () {
-        return (
-            <MuiThemeProvider>
-                <div>
-                    <Header title = 'Travely'/>
-                    <div id = "container">
-                        <Travely />
-                    </div>
-                </div>
-            </MuiThemeProvider>
-        );
+const theme = getMuiTheme({
+    palette: {
+        primary1Color: colors.teal700,
+        primary2Color: colors.teal500,
+        primary3Color: colors.teal100,
+        accent1Color: colors.blueGrey600,
+        accent2Color: colors.blueGrey500,
+        accent3Color: colors.blueGrey400
     }
-}
+});
+
+const Application = () => (
+    <Provider store = {store}>
+        <MuiThemeProvider muiTheme = {theme}>
+            <div>
+                <Header title = 'Routely'/>
+                <div id = "container">
+                    <Routely />
+                </div>
+            </div>
+        </MuiThemeProvider>
+    </Provider>
+);
 
 export default Application;

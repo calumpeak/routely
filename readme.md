@@ -1,5 +1,5 @@
-# Travely
-The lovely travel route app.
+# Routely
+The lovely route app.
 
 ## Getting Started
 

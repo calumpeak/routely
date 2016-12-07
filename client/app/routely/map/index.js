@@ -33,7 +33,8 @@ class Map extends Component {
     }
 
     componentDidMount () {
-        // TODO check if geolocatio available
+        // TODO check if geolocatio available as doesn't work on insecure connections
+        // Chrome appears to be fine on localhost but not on safari for example
         window.navigator.geolocation.getCurrentPosition(this.updateLocation);
     }
 
