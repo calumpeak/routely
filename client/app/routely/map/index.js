@@ -1,41 +1,50 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { withGoogleMap, GoogleMap } from 'react-google-maps';
+import DirectionsMap from 'components/maps/directionMap';
 
-import 'styles/map.css';
-
-const DirectionsMap = withGoogleMap(props => (
-    <GoogleMap
-        defaultZoom = {15}
-        center = {props.location}
-    />
-));
+const DirectionsService = new google.maps.DirectionsService();
 
 /**
  * Map Class
- * Handles Mapping and Direction input
+ * Handles Map rendering and Direction input
  *
  * @class Map
  */
 class Map extends Component {
-    constructor () {
-        super();
+    constructor (props) {
+        super(props);
 
+        /**
+         * Default State to London
+         */
         this.state = {
             location: {
                 lat:  51.5074,
                 lng:  0.1278
-            }
+            },
+            directions: null
         };
 
         this.updateLocation = this.updateLocation.bind(this);
     }
 
     componentDidMount () {
-        // TODO check if geolocatio available as doesn't work on insecure connections
+        const { route } = this.props;
+        // TODO check if geolocation available as doesn't work on insecure connections
         // Chrome appears to be fine on localhost but not on safari for example
         window.navigator.geolocation.getCurrentPosition(this.updateLocation);
+
+        if (route.origin && route.destination) {
+            DirectionsService.route(route, (directions, status) => {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    this.updateDirections(directions);
+                } else {
+                    // TODO: User Notification
+                    console.log('Something Went Wrong!!!');
+                }
+            });
+        }
     }
 
     /**
@@ -54,13 +63,18 @@ class Map extends Component {
         });
     }
 
+    updateDirections (directions) {
+        this.setState({
+            directions
+        });
+    }
+
     render () {
-        const { location } = this.state;
         return (
             <DirectionsMap
                 containerElement = {<div style={{ height: `100%` }} />}
                 mapElement = {<div style={{ height: `100%` }} />}
-                location = {location}
+                {...this.state}
             />
         );
     }
