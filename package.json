@@ -27,6 +27,7 @@
     "webpack-merge": "^0.14.1"
   },
   "dependencies": {
+    "deep-equal": "^1.0.1",
     "express": "^4.14.0",
     "lodash": "^4.17.2",
     "material-ui": "^0.16.4",
