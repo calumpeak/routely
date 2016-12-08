@@ -7,6 +7,7 @@ const destination = (state = [], action) => {
         case 'ADD_DESTINATION':
             return {
                 location: '',
+                stopover: true,
                 id: uuid.v4()
             };
         default:
@@ -15,7 +16,7 @@ const destination = (state = [], action) => {
 };
 
 const initialState = [
-    { location: '', id: uuid.v4() }
+    { location: '', stopover: true, id: uuid.v4() }
 ];
 
 const destinationReducer = (state = initialState, action) => {

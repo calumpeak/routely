@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
-import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import CloseIcon from 'material-ui/svg-icons/navigation/close';
 import actions from './actions/destination';
 
 const MAX_DESTINATIONS = 4;
@@ -15,6 +15,17 @@ const buttonStyle = {
     marginTop: 10
 };
 
+const iconStyle = {
+    position: 'absolute',
+    right: -10,
+    opacity: 0.5
+};
+
+/**
+ * Responsible for handling destination fields
+ *
+ * @class Destination
+ */
 class Destination extends Component {
     constructor (props) {
         super(props);
@@ -26,7 +37,7 @@ class Destination extends Component {
 
         return (
             <div>
-                {destination.map((obj) =>
+                {destination.map((obj, index) =>
                     <div key = {obj.id}>
                         <TextField
                             hintText = 'Destination'
@@ -34,7 +45,15 @@ class Destination extends Component {
                             value = {obj.location}
                             fullWidth = {true}
                         />
-                    {/*TODO: Delete destination Icon*/}
+                        {index ?
+                            <IconButton
+                                onClick = {() => removeDestination(obj.id)}
+                                style = {iconStyle}
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                            :null
+                        }
                     </div>
                 )}
                 <RaisedButton
@@ -62,10 +81,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Destination);
-
-// <IconButton
-//     onClick = {() => removeDestination(obj.id)}
-//     style = {{}}
-// >
-//     <DeleteIcon />
-// </IconButton>

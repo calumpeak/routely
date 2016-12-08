@@ -31,7 +31,7 @@ const common = {
     },
     output: {
         path: PATHS.build,
-        filename: 'travely-app.js'
+        filename: 'routely-app.js'
     },
     module: {
         loaders: [

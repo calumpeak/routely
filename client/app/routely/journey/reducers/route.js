@@ -16,6 +16,7 @@ const routeReducer = (state = initialState, action) => {
                 origin: action.origin,
                 destination: action.destination,
                 waypoints: action.waypoints,
+                unitSystem: 1,
                 optimizeWaypoints: true,
                 travelMode: 'DRIVING'
             });

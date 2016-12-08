@@ -1,7 +1,12 @@
 'use strict';
 
 import React, { Component } from 'react';
+import deepEqual from 'deep-equal';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import DirectionsMap from 'components/maps/directionMap';
+import { currentPosition, directions } from 'utils/geo';
+import actions from './actions/legs';
 
 const DirectionsService = new google.maps.DirectionsService();
 
@@ -16,12 +21,13 @@ class Map extends Component {
         super(props);
 
         /**
-         * Default State to London
+         * Default State to London Area
+         * No other modules need to know about this so lets store it in local state
          */
         this.state = {
             location: {
-                lat:  51.5074,
-                lng:  0.1278
+                lat:  51.51969,
+                lng:  -0.09786
             },
             directions: null
         };
@@ -31,20 +37,30 @@ class Map extends Component {
 
     componentDidMount () {
         const { route } = this.props;
-        // TODO check if geolocation available as doesn't work on insecure connections
-        // Chrome appears to be fine on localhost but not on safari for example
-        window.navigator.geolocation.getCurrentPosition(this.updateLocation);
 
-        if (route.origin && route.destination) {
-            DirectionsService.route(route, (directions, status) => {
-                if (status === google.maps.DirectionsStatus.OK) {
-                    this.updateDirections(directions);
-                } else {
-                    // TODO: User Notification
-                    console.log('Something Went Wrong!!!');
+        // Attempt to focus the map on the user
+        currentPosition(this.updateLocation);
+    }
+
+    componentDidUpdate (prevProps) {
+        const { route } = this.props;
+        const { updateLegs } = this.props.actions;
+
+        // We don't want to create an inf loop here
+        // So lets check the values we get in props are different
+        if (!deepEqual(this.props, prevProps)) {
+            // Handle route directions
+            directions(route, (error, directions) => {
+                if (error) {
+                    // TODO
+                    return console.log(error);
                 }
+
+                updateLegs(directions.routes[0].legs);
+                this.updateDirections(directions);
             });
         }
+
     }
 
     /**
@@ -63,6 +79,13 @@ class Map extends Component {
         });
     }
 
+    /**
+     * Updates the current directions
+     *
+     * @for Map
+     * @method updateDirections
+     * @param {Object} directions
+     */
     updateDirections (directions) {
         this.setState({
             directions
@@ -80,4 +103,15 @@ class Map extends Component {
     }
 }
 
-export default Map;
+const mapStateToProps = (state) => ({
+    route: state.journey.route
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    actions: bindActionCreators(actions, dispatch)
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Map);

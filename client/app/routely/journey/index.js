@@ -4,33 +4,34 @@ import React, { Component } from 'react';
 import { Card, CardMedia } from 'material-ui/Card';
 import Origin from './origin';
 import Destination from './destination';
-import RaisedButton from 'material-ui/RaisedButton';
+import Route from './route';
+import Legs from './legs';
 
 const cardStyle = {
     width: '300px',
     margin: '20px',
     position: 'absolute',
-    maxHeight: 'Calc(100vh - 75)',
+    maxHeight: '85vh',
+    overflow: 'auto',
     top: 65,
     padding: 10
 };
 
-const buttonStyle = {
-    marginTop: 10
-};
-
+/**
+ * Responsible for rendering out the journey logic card
+ * TODO: Put in drawer for mobile
+ *
+ * @class Journey
+ */
 class Journey extends Component {
-    constructor (props) {
-        super(props);
-    }
-
     render () {
         return (
             <Card style = {cardStyle}>
                 <CardMedia>
                     <Origin />
                     <Destination />
-                    <RaisedButton label="Route!" primary={true} style = {buttonStyle}/>
+                    <Route />
+                    <Legs />
                 </CardMedia>
             </Card>
         );

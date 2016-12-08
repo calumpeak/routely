@@ -12,6 +12,7 @@
         "afterEach": true,
         "document": true,
         "window": true,
-        "google": true
+        "google": true,
+        "navigator": true
     }
 }

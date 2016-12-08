@@ -10,5 +10,5 @@ reactTapPlugin();
 
 render (
     <App />,
-    document.getElementById('travely-app')
+    document.getElementById('routely-app')
 );
