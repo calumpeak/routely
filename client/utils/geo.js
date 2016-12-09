@@ -45,8 +45,34 @@ const directions = (route, callback) => {
     });
 };
 
+/**
+ * Calls googles AutoCompleteService for suggestions on places
+ * As async, passs a callback
+ *
+ * @method placeSearch
+ * @param {String} input
+ * @param {Callback} callback
+ */
+const placeSearch = (() => {
+    const AutoCompleteService =  new google.maps.places.AutocompleteService();
+
+    return (input, callback) => {
+        if (!input) {
+            return;
+        }
+        
+        AutoCompleteService.getPlacePredictions({ input }, (predictions, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                callback(null, predictions);
+            } else {
+                callback({ error: status });
+            }
+        });
+    };
+})();
 
 export {
     currentPosition,
-    directions
+    directions,
+    placeSearch
 };

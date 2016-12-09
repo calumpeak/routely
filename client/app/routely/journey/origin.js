@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
+import LocationAutoComplete from 'components/auto-complete/location';
 import actions from './actions/origin';
 
 /**
@@ -26,21 +26,20 @@ class Origin extends Component {
      * @method onOriginChange
      * @param {Object} event synthetic event
      */
-    onOriginChange (event) {
+    onOriginChange (value) {
         const { updateOriginValue } = this.props.actions;
 
-        updateOriginValue(event.target.value);
+        updateOriginValue(value);
     }
 
     render () {
         const { originValue } = this.props.origin;
 
         return (
-            <TextField
-                hintText = 'Origin'
+            <LocationAutoComplete
                 fullWidth = {true}
+                hintText = 'Origin'
                 onChange = {this.onOriginChange}
-                value = {originValue}
             />
         );
     }

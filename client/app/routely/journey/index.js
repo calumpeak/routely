@@ -8,7 +8,7 @@ import Route from './route';
 import Legs from './legs';
 
 const cardStyle = {
-    width: '300px',
+    width: '390px',
     margin: '20px',
     position: 'absolute',
     maxHeight: '85vh',
