@@ -8,8 +8,6 @@ import DirectionsMap from 'components/maps/directionMap';
 import { currentPosition, directions } from 'utils/geo';
 import actions from './actions/legs';
 
-const DirectionsService = new google.maps.DirectionsService();
-
 /**
  * Map Class
  * Handles Map rendering and Direction input

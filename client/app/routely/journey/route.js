@@ -35,7 +35,7 @@ class Route extends Component {
         const { origin, destination } = this.props;
         const { updateRoute } = this.props.actions;
         // Because the objects are still by reference in the array, we don't get
-        // a pure copy
+        // a pure copy, so lets rectify that as we need to adjust some values lower down
         const destCopy = destination.reduce((newArray, obj) => {
             newArray.push(_.assign({}, obj));
             return newArray;

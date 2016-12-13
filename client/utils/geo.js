@@ -28,22 +28,19 @@ const currentPosition = (callback) => {
  * @param {Object} route see https://developers.google.com/maps/documentation/javascript/directions
  * @param {Callback} callback
  */
-const directions = (route, callback) => {
-    // TODO: We should probably check that google global has loaded
+const directions = (() => {
     const DirectionsService = new google.maps.DirectionsService();
 
-    if (!route.origin && !route.destination) {
-        return;
-    }
-
-    DirectionsService.route(route, (directions, status) => {
-        if (status === google.maps.DirectionsStatus.OK) {
-            callback(null, directions);
-        } else {
-            callback({ error: status });
-        }
-    });
-};
+    return (route, callback) => {
+        DirectionsService.route(route, (directions, status) => {
+            if (status === google.maps.DirectionsStatus.OK) {
+                callback(null, directions);
+            } else {
+                callback({ error: status });
+            }
+        });
+    };
+})();
 
 
 export {
